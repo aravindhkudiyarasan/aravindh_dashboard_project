@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>My First Chart</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+      <!--charlist -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>-->
+  </head>
+<body>
+<div>
+    <canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</body>
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function loadChart(data){
+
+console.log(66,httpGet("http://api.openweathermap.org/data/2.5/weather?q=india&units=imperial&appid=271d1234d3f497eed5b1d80a07b3fcd1"))
+<!--data = {-->
+<!--    "page": 2,-->
+<!--    "per_page": 6,-->
+<!--    "total": 12,-->
+<!--    "total_pages": 2,-->
+<!--    "data": [-->
+<!--        {-->
+<!--            "id": 7,-->
+<!--            "email": "michael.lawson@reqres.in",-->
+<!--            "first_name": "Michael",-->
+<!--            "last_name": "Lawson",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"-->
+<!--        },-->
+<!--        {-->
+<!--            "id": 8,-->
+<!--            "email": "lindsay.ferguson@reqres.in",-->
+<!--            "first_name": "Lindsay",-->
+<!--            "last_name": "Ferguson",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/araa3185/128.jpg"-->
+<!--        },-->
+<!--        {-->
+<!--            "id": 9,-->
+<!--            "email": "tobias.funke@reqres.in",-->
+<!--            "first_name": "Tobias",-->
+<!--            "last_name": "Funke",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/vivekprvr/128.jpg"-->
+<!--        },-->
+<!--        {-->
+<!--            "id": 10,-->
+<!--            "email": "byron.fields@reqres.in",-->
+<!--            "first_name": "Byron",-->
+<!--            "last_name": "Fields",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/russoedu/128.jpg"-->
+<!--        },-->
+<!--        {-->
+<!--            "id": 11,-->
+<!--            "email": "george.edwards@reqres.in",-->
+<!--            "first_name": "George",-->
+<!--            "last_name": "Edwards",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/mrmoiree/128.jpg"-->
+<!--        },-->
+<!--        {-->
+<!--            "id": 12,-->
+<!--            "email": "rachel.howell@reqres.in",-->
+<!--            "first_name": "Rachel",-->
+<!--            "last_name": "Howell",-->
+<!--            "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/hebertialmeida/128.jpg"-->
+<!--        }-->
+<!--    ],-->
+<!--    "ad": {-->
+<!--        "company": "StatusCode Weekly",-->
+<!--        "url": "http://statuscode.org/",-->
+<!--        "text": "A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things."-->
+<!--    }-->
+<!--}-->
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: data.data.map(item => item.first_name),
+        datasets: [{
+            label: '# of Votes',
+            data:data.data.map(item => item.id),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+}
+
+let jsonData = httpGet("http://api.openweathermap.org/data/2.5/weather?q=india&units=imperial&appid=271d1234d3f497eed5b1d80a07b3fcd1");
+loadChart(jsonData)
+</script>
+</html>
